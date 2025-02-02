@@ -46,52 +46,58 @@ export default function TaskView() {
         </header>
         <div ref={shelfRef} className="flex gap-3 mx-auto w-min">
           <TaskList shelfKey={TASK_STATUS.TODO} title="TO DO">
-            {tasks
-              ?.filter((task) => task.status === TASK_STATUS.TODO)
-              ?.sort((a, b) => a.position - b.position)
-              ?.map((task) => (
-                <Card
-                  key={task.id}
-                  id={task.id}
-                  title={task.title}
-                  description={task.description}
-                  isLocked={task.isLocked}
-                  onLocked={() => updateLock(task.id)}
-                  onClick={() => openModal(task.id)}
-                />
-              ))}
+            {tasks.length > 0
+              ? tasks
+                  .filter((task) => task.status === TASK_STATUS.TODO)
+                  .sort((a, b) => a.position - b.position)
+                  .map((task) => (
+                    <Card
+                      key={task.id}
+                      id={task.id}
+                      title={task.title}
+                      description={task.description}
+                      isLocked={task.isLocked}
+                      onLocked={() => updateLock(task.id)}
+                      onClick={() => openModal(task.id)}
+                    />
+                  ))
+              : null}
           </TaskList>
           <TaskList shelfKey={TASK_STATUS.IN_PROGRESS} title="IN PROGRESS">
-            {tasks
-              .filter((task) => task.status === TASK_STATUS.IN_PROGRESS)
-              .sort((a, b) => a.position - b.position)
-              ?.map((task) => (
-                <Card
-                  key={task.id}
-                  id={task.id}
-                  title={task.title}
-                  description={task.description}
-                  isLocked={task.isLocked}
-                  onLocked={() => updateLock(task.id)}
-                  onClick={() => openModal(task.id)}
-                />
-              ))}
+            {tasks.length > 0
+              ? tasks
+                  .filter((task) => task.status === TASK_STATUS.IN_PROGRESS)
+                  .sort((a, b) => a.position - b.position)
+                  .map((task) => (
+                    <Card
+                      key={task.id}
+                      id={task.id}
+                      title={task.title}
+                      description={task.description}
+                      isLocked={task.isLocked}
+                      onLocked={() => updateLock(task.id)}
+                      onClick={() => openModal(task.id)}
+                    />
+                  ))
+              : null}
           </TaskList>
           <TaskList shelfKey={TASK_STATUS.DONE} title="DONE">
-            {tasks
-              .filter((task) => task.status === TASK_STATUS.DONE)
-              .sort((a, b) => a.position - b.position)
-              ?.map((task) => (
-                <Card
-                  key={task.id}
-                  id={task.id}
-                  title={task.title}
-                  description={task.description}
-                  isLocked={task.isLocked}
-                  onLocked={() => updateLock(task.id)}
-                  onClick={() => openModal(task.id)}
-                />
-              ))}
+            {tasks.length > 0
+              ? tasks
+                  .filter((task) => task.status === TASK_STATUS.DONE)
+                  .sort((a, b) => a.position - b.position)
+                  .map((task) => (
+                    <Card
+                      key={task.id}
+                      id={task.id}
+                      title={task.title}
+                      description={task.description}
+                      isLocked={task.isLocked}
+                      onLocked={() => updateLock(task.id)}
+                      onClick={() => openModal(task.id)}
+                    />
+                  ))
+              : null}
           </TaskList>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import { TShelfData, useShelf } from '@mardinidev/shelf-js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { taskAction } from '../action/task-action';
 import { TASK_STATUS } from '../constants';
-import { Status } from '../data/tasks';
+import { Status, Task } from '../data/tasks';
 import Card from './Card';
 import Modal from './Modal';
 import TaskDetail from './TaskDetail';
@@ -11,11 +11,15 @@ import TaskList from './TaskList';
 
 export default function TaskView() {
   const [isOpen, setIsOpen] = useState(false);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [id, setId] = useState('');
 
   const { getTasks, updateStatusAndPosition, updateLock } = taskAction;
 
-  const tasks = getTasks();
+  useEffect(() => {
+    const data = getTasks();
+    setTasks(data);
+  }, [getTasks]);
 
   const [shelfRef] = useShelf({
     onOverClass: 'over',

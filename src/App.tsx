@@ -10,7 +10,7 @@ export default function App() {
       className="w-full h-screen grid place-content-center"
       onResize={(event) => console.log(event)}
     >
-      {isTouch || width < 1280 ? <MessageView /> : <TaskView />}
+      {isTouch || width < 1024 ? <MessageView /> : <TaskView />}
     </div>
   );
 }

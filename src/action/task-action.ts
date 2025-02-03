@@ -65,12 +65,16 @@ export const taskAction = {
     return tasks[index];
   },
 
-  getTasks: () => {
+  init() {
     const tasksStorage = localStorage.getItem(TASK_LOCAL_STORAGE_KEY);
     const isTasksNull = tasksStorage === null;
     if (isTasksNull) {
       localStorage.setItem(TASK_LOCAL_STORAGE_KEY, JSON.stringify(INITIAL_TASKS));
     }
+  },
+
+  getTasks: () => {
+    const tasksStorage = localStorage.getItem(TASK_LOCAL_STORAGE_KEY);
     const tasks = JSON.parse(tasksStorage!) as Task[];
     return tasks;
   },

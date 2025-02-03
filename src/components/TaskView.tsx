@@ -11,15 +11,16 @@ import TaskList from './TaskList';
 
 export default function TaskView() {
   const [isOpen, setIsOpen] = useState(false);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[] | null>(null);
   const [id, setId] = useState('');
 
-  const { getTasks, updateStatusAndPosition, updateLock } = taskAction;
+  const { init, getTasks, updateStatusAndPosition, updateLock } = taskAction;
 
   useEffect(() => {
+    init();
     const data = getTasks();
     setTasks(data);
-  }, [getTasks]);
+  }, [init, getTasks]);
 
   const [shelfRef] = useShelf({
     onOverClass: 'over',
@@ -50,7 +51,7 @@ export default function TaskView() {
         </header>
         <div ref={shelfRef} className="flex gap-3 mx-auto w-min">
           <TaskList shelfKey={TASK_STATUS.TODO} title="TO DO">
-            {tasks.length > 0
+            {tasks !== null
               ? tasks
                   .filter((task) => task.status === TASK_STATUS.TODO)
                   .sort((a, b) => a.position - b.position)
@@ -68,7 +69,7 @@ export default function TaskView() {
               : null}
           </TaskList>
           <TaskList shelfKey={TASK_STATUS.IN_PROGRESS} title="IN PROGRESS">
-            {tasks.length > 0
+            {tasks !== null
               ? tasks
                   .filter((task) => task.status === TASK_STATUS.IN_PROGRESS)
                   .sort((a, b) => a.position - b.position)
@@ -86,7 +87,7 @@ export default function TaskView() {
               : null}
           </TaskList>
           <TaskList shelfKey={TASK_STATUS.DONE} title="DONE">
-            {tasks.length > 0
+            {tasks !== null
               ? tasks
                   .filter((task) => task.status === TASK_STATUS.DONE)
                   .sort((a, b) => a.position - b.position)
